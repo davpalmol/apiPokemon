@@ -8,4 +8,7 @@ interface PokemonApiService {
     @GET("pokemon/{name}")
     suspend fun getPokemon(@Path("name") name: String): Pokemon
 
+    @GET("pokemon/{id}")
+    suspend fun getIdPokemon(@Path("id") id: Int): Pokemon
+
 }

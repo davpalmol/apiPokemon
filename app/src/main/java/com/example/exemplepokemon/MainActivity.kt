@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var pokemonNameTextView: TextView
+    private lateinit var pokemonIdTextView: TextView
     private lateinit var pokemonImageView: ImageView
     private lateinit var pokemonNameEditText: EditText
     private lateinit var boton: Button
@@ -39,10 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         boton.setOnClickListener {
             val pokemonName = pokemonNameEditText.text.toString()
+
             fetchPokemonData(pokemonName)
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun fetchPokemonData(pokemonName: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://pokeapi.co/api/v2/")
@@ -57,6 +60,8 @@ class MainActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     pokemonNameTextView.text = pokemon.name
+                    pokemonIdTextView.text = pokemon.id.toString()
+
                     Picasso.get()
                         .load(pokemon.sprites.frontDefault)
                         .into(pokemonImageView)
